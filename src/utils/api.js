@@ -3,26 +3,27 @@ class Api {
     this._baseURL = url;
   }
 
-  _checkResponse(request) {
-    return request.then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
-    });
-  }
+  // _checkResponse(request) {
+  //   return request.then((res) => {
+  //     if (res.ok) {
+  //       return res.json();
+  //     }
+  //     return Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
+  //   });
+  // }
 
   getResource(url, isLong = true) {
     url = isLong ? url + '/poll' : url;
 
-    const newProm = fetch(`${this._URLBase}${url}`, {
+    const newProm = fetch(`${this._baseURL}${url}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    return this._checkResponse(newProm);
+    // return this._checkResponse(newProm);
+    return newProm;
   }
 
 }
