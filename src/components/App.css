@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.body {
+  background-color: #dedede;
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+}
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.test {
+  color: black;
+  margin: 0;
+}
