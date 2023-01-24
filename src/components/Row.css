@@ -1,6 +1,6 @@
 .row {
   display: flex;
-  min-width: 480px;
+  width: 560px;
   font-weight: 600;
   /* border: 1px solid #555; */
 }
@@ -9,11 +9,11 @@
   font-weight: 500;
 }
 .column {
-  width: 40%;
+  width: 31%;
   padding: 5px;
 }
 .column:not(:first-of-type) {
-  width: 20%;
+  width: 23%;
   border-left: 1px solid #555;
   text-align: center;
 }

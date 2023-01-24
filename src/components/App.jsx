@@ -1,67 +1,87 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ApiService from '../utils/api';
+import ratesReducer from '../utils/ratesReducer';
+import { initialState, PAIRS } from '../utils/constants';
 import './App.css';
 import Row from './Row';
 
-const initialState = { first: {}, second: {}, third: {} };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case '/first':
-      return { ...state, first: action.payload };
-    case '/second':
-      return { ...state, second: action.payload };
-    case '/third':
-      return { ...state, third: action.payload };
-    default:
-      throw new Error();
-  }
-}
-
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [first, setFirst] = useState(0.0);
-  const [second, setSecond] = useState(0.0);
-  const [third, setThird] = useState(0.0);
+  const [state, dispatch] = useReducer(ratesReducer, initialState);
+  const [preparedData, setPreparedData] = useState({});
+  const [lastUpdated, setLastUpdated] = useState({});
 
   useEffect(() => {
-    requestData('/first', false);
-    return () => requestData('/first', false);
+    requestData('/first');
+    return () => requestData('/first');
   }, []);
 
   useEffect(() => {
-    requestData('/second', false);
-    return () => requestData('/second', false);
+    requestData('/second');
+    return () => requestData('/second');
   }, []);
 
   useEffect(() => {
-    requestData('/third', false);
-    return () => requestData('/third', false);
+    requestData('/third');
+    return () => requestData('/third');
   }, []);
 
   useEffect(() => {
-    console.log(state);
+    prepareData();
+    countLastUpdated();
   }, [state]);
+
+  function countLastUpdated() {
+    const keys = Object.keys(state);
+    const result = {};
+
+    keys.forEach((key) => {
+      const updateTime = state[key].timestamp * 1000;
+      result[key] = new Date(updateTime).toLocaleString();
+    });
+
+    setLastUpdated(result);
+  }
+
+  function prepareData() {
+    const result = {};
+    // get state keys - ['first', 'second', 'third']
+    const keys = Object.keys(state);
+    // iterate through all pairs to combine data
+    PAIRS.forEach((pair) => {
+      const pairRates = {};
+
+      for (let i = 0; i < keys.length; i++) {
+        if (pair[1] === 'CUPCAKE') {
+          pairRates[keys[i]] = Number(state[keys[i]].rates[pair[0]].toFixed(2));
+        } else {
+          pairRates[keys[i]] = Number((state[keys[i]].rates[pair[0]] / state[keys[i]].rates[pair[1]]).toFixed(2));
+        }
+      }
+
+      result[pair.join('/')] = pairRates;
+    });
+
+    setPreparedData(result);
+  }
 
   function requestData(url, isLongPoll = true) {
     ApiService.getResource(url, isLongPoll).then((res) => {
       if (res.status == 502) {
         console.log(res.statusText);
 
-        if (isLongPoll) requestData(url, isLongPoll);
+        if (isLongPoll) requestData(url);
       } else if (res.status != 200) {
         Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
 
         if (isLongPoll) {
           // New request in 1 second.
           new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
-            requestData(url, isLongPoll);
+            requestData(url);
           });
         }
       } else {
         res.json().then((data) => dispatch({ type: url, payload: data }));
-        if (isLongPoll) requestData(url, isLongPoll);
+        if (isLongPoll) requestData(url);
       }
     });
   }
@@ -70,12 +90,12 @@ export default function App() {
       <h1 className='page__title'>Exchange rates</h1>
       <div className='table-container'>
         <Row title='Pair name/market' data={{ first: 'First', second: 'Second', third: 'Third' }} />
-        <Row title='RUB/CUPCAKE' data={{ first: 2, second: 2, third: 3 }} />
-        <Row title='USD/CUPCAKE' data={{ first: 2, second: 2, third: 3 }} />
-        <Row title='EUR/CUPCAKE' data={{ first: 2, second: 2, third: 3 }} />
-        <Row title='RUB/USD' data={{ first: 2, second: 2, third: 3 }} />
-        <Row title='RUB/EUR' data={{ first: 2, second: 2, third: 3 }} />
-        <Row title='EUR/USD' data={{ first: 2, second: 2, third: 3 }} />
+
+        {PAIRS.map((pair, idx) => {
+          const value = pair.join('/');
+          return <Row title={value} key={idx} data={preparedData[value]} />;
+        })}
+        <Row title='Last update on' data={lastUpdated}></Row>
       </div>
       <a href='https://github.com/Iluxmas/test_task_230123' target='_blank' className='page__link'>
         Repository
