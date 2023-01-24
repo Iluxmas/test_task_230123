@@ -17,8 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.js");
 /* harmony import */ var _utils_ratesReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/ratesReducer */ "./src/utils/ratesReducer.js");
 /* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/constants */ "./src/utils/constants.js");
-/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App.css */ "./src/components/App.css");
-/* harmony import */ var _Row_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row.jsx */ "./src/components/Row.jsx");
+/* harmony import */ var _Row_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Row.jsx */ "./src/components/Row.jsx");
+/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./App.css */ "./src/components/App.css");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -40,10 +40,6 @@ function App() {
     _useState2 = _slicedToArray(_useState, 2),
     preparedData = _useState2[0],
     setPreparedData = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
-    _useState4 = _slicedToArray(_useState3, 2),
-    lastUpdated = _useState4[0],
-    setLastUpdated = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     requestData('/first');
     return function () {
@@ -64,22 +60,13 @@ function App() {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     prepareData();
-    countLastUpdated();
   }, [state]);
-  function countLastUpdated() {
-    var keys = Object.keys(state);
-    var result = {};
-    keys.forEach(function (key) {
-      var updateTime = state[key].timestamp * 1000;
-      result[key] = new Date(updateTime).toLocaleString();
-    });
-    setLastUpdated(result);
-  }
   function prepareData() {
     var result = {};
     // get state keys - ['first', 'second', 'third']
     var keys = Object.keys(state);
-    // iterate through all pairs to combine data
+
+    // iterate through all currency pairs to combine data like { 'PAIR_NAME': {'first': value, 'second': value, 'third': value}}
     _utils_constants__WEBPACK_IMPORTED_MODULE_3__.PAIRS.forEach(function (pair) {
       var pairRates = {};
       for (var i = 0; i < keys.length; i++) {
@@ -126,7 +113,7 @@ function App() {
     className: "page__title"
   }, "Exchange rates"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "table-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
     title: "Pair name/market",
     data: {
       first: 'First',
@@ -135,16 +122,13 @@ function App() {
     }
   }), _utils_constants__WEBPACK_IMPORTED_MODULE_3__.PAIRS.map(function (pair, idx) {
     var value = pair.join('/');
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
       title: value,
       key: idx,
       data: preparedData[value]
     });
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    title: "Last update on",
-    data: lastUpdated
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    href: "https://github.com/Iluxmas/test_task_230123",
+    href: "https://github.com/Iluxmas/test_task_230123_",
     target: "_blank",
     className: "page__link"
   }, "Repository"));
