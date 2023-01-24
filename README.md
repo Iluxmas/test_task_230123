@@ -4,9 +4,11 @@
 
 **Tech stack:** React, JavaScript, API, Webpack
 
-**Run the application:** After downloading this repo run command `npm i` to install dependencies. After that you need run server from the API repo mentioned above. After that API will be available on PORT 3000. Then start this app using `npm start`, that all.
+**Application start:** After downloading this repo run command `npm i` to install dependencies. After that you need run server from the API repo mentioned above. After that API will be available on PORT 3000. Then start this app using `npm start`, that all. Or you can access deployed version [here](https://iluxmas.github.io/test_task_230123_/) (API server still need to be launched)
 
 **Features:**
 
 - Exchange rates received from three sources using long polling connection
 - Highlighting of most profitable value for exchange pair
+
+Bundling was made with Webpack
