@@ -8,10 +8,23 @@
 .page {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  gap: 15px;
   align-items: center;
   justify-content: center;
 }
-.test {
+.page__title {
   color: black;
   margin: 0;
+}
+.table-container {
+  border: 1px solid #555;
+}
+
+.page__link {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.page__link:hover {
+  opacity: 0.6;
 }
