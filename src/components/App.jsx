@@ -2,13 +2,13 @@ import React, { useState, useEffect, useReducer } from 'react';
 import ApiService from '../utils/api';
 import ratesReducer from '../utils/ratesReducer';
 import { initialState, PAIRS } from '../utils/constants';
+import Row from './Row.jsx';
+
 import './App.css';
-import Row from './Row';
 
 export default function App() {
   const [state, dispatch] = useReducer(ratesReducer, initialState);
   const [preparedData, setPreparedData] = useState({});
-  const [lastUpdated, setLastUpdated] = useState({});
 
   useEffect(() => {
     requestData('/first');
@@ -27,26 +27,14 @@ export default function App() {
 
   useEffect(() => {
     prepareData();
-    countLastUpdated();
   }, [state]);
-
-  function countLastUpdated() {
-    const keys = Object.keys(state);
-    const result = {};
-
-    keys.forEach((key) => {
-      const updateTime = state[key].timestamp * 1000;
-      result[key] = new Date(updateTime).toLocaleString();
-    });
-
-    setLastUpdated(result);
-  }
 
   function prepareData() {
     const result = {};
     // get state keys - ['first', 'second', 'third']
     const keys = Object.keys(state);
-    // iterate through all pairs to combine data
+
+    // iterate through all currency pairs to combine data like { 'PAIR_NAME': {'first': value, 'second': value, 'third': value}}
     PAIRS.forEach((pair) => {
       const pairRates = {};
 
@@ -95,9 +83,8 @@ export default function App() {
           const value = pair.join('/');
           return <Row title={value} key={idx} data={preparedData[value]} />;
         })}
-        <Row title='Last update on' data={lastUpdated}></Row>
       </div>
-      <a href='https://github.com/Iluxmas/test_task_230123' target='_blank' className='page__link'>
+      <a href='https://github.com/Iluxmas/test_task_230123_' target='_blank' className='page__link'>
         Repository
       </a>
     </div>

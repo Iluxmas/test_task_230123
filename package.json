@@ -1,7 +1,9 @@
 {
-  "name": "test_task_230123",
+  "name": "test_task_230123_",
+  "homepage": "https://github.com/Iluxmas/test_task_230123_",
   "version": "0.1.0",
   "private": true,
+  "author": "Ilya Su",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "18.2.0",
@@ -9,8 +11,10 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
-    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "start": "webpack serve",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -25,5 +29,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
