@@ -1,0 +1,69 @@
+/*!**************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/App.css ***!
+  \**************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap);
+/*!******************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/App.css (1) ***!
+  \******************************************************************************/
+.body {
+  background-color: #dedede;
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+}
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+.page__title {
+  color: black;
+  margin: 0;
+}
+.table-container {
+  border: 1px solid #555;
+}
+
+.page__link {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.page__link:hover {
+  opacity: 0.6;
+}
+
+/*!**************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/Row.css ***!
+  \**************************************************************************/
+.row {
+  display: flex;
+  width: 560px;
+  font-weight: 600;
+  /* border: 1px solid #555; */
+}
+.row:not(:first-of-type) {
+  border-top: 1px solid #555;
+  font-weight: 500;
+}
+.column {
+  width: 31%;
+  padding: 5px;
+}
+.column:not(:first-of-type) {
+  width: 23%;
+  border-left: 1px solid #555;
+  text-align: center;
+}
+
+.best-value {
+  background-color: rgba(255, 166, 0, 0.582);
+}
+
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
+  \*****************************************************************/
+
+
+/*# sourceMappingURL=main.efd2d72d667d187e33f8.css.map*/
