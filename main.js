@@ -31,8 +31,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var initialState = {};
 function App() {
-  var _useReducer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useReducer)(_utils_ratesReducer__WEBPACK_IMPORTED_MODULE_2__["default"], _utils_constants__WEBPACK_IMPORTED_MODULE_3__.initialState),
+  var _useReducer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useReducer)(_utils_ratesReducer__WEBPACK_IMPORTED_MODULE_2__["default"], initialState),
     _useReducer2 = _slicedToArray(_useReducer, 2),
     state = _useReducer2[0],
     dispatch = _useReducer2[1];
@@ -67,7 +68,7 @@ function App() {
     var keys = Object.keys(state);
 
     // iterate through all currency pairs to combine data like { 'PAIR_NAME': {'first': value, 'second': value, 'third': value}}
-    _utils_constants__WEBPACK_IMPORTED_MODULE_3__.PAIRS.forEach(function (pair) {
+    _utils_constants__WEBPACK_IMPORTED_MODULE_3__["default"].forEach(function (pair) {
       var pairRates = {};
       for (var i = 0; i < keys.length; i++) {
         if (pair[1] === 'CUPCAKE') {
@@ -120,7 +121,7 @@ function App() {
       second: 'Second',
       third: 'Third'
     }
-  }), _utils_constants__WEBPACK_IMPORTED_MODULE_3__.PAIRS.map(function (pair, idx) {
+  }), _utils_constants__WEBPACK_IMPORTED_MODULE_3__["default"].map(function (pair, idx) {
     var value = pair.join('/');
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
       title: value,
@@ -197,15 +198,6 @@ var Api = /*#__PURE__*/function () {
     _classCallCheck(this, Api);
     this._baseURL = url;
   }
-
-  // _checkResponse(request) {
-  //   return request.then((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
-  //   });
-  // }
   _createClass(Api, [{
     key: "getResource",
     value: function getResource(url) {
@@ -217,8 +209,6 @@ var Api = /*#__PURE__*/function () {
           "Content-Type": "application/json"
         }
       });
-
-      // return this._checkResponse(newProm);
       return newProm;
     }
   }]);
@@ -238,12 +228,10 @@ var ApiService = new Api(apiURL);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PAIRS": () => (/* binding */ PAIRS),
-/* harmony export */   "initialState": () => (/* binding */ initialState)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var initialState = {};
 var PAIRS = [['RUB', 'CUPCAKE'], ['USD', 'CUPCAKE'], ['EUR', 'CUPCAKE'], ['RUB', 'USD'], ['RUB', 'EUR'], ['EUR', 'USD']];
-
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PAIRS);
 
 /***/ }),
 
