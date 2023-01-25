@@ -12,3 +12,9 @@
 - Highlighting of most profitable value for exchange pair
 
 Bundling was made with Webpack
+
+**Things to improve:**
+
+- [ ] Display API availability status
+- [ ] Add last update time for sources
+- [ ] Refactor processing data function to make it calculate and update only newly received data, would be better in case of data scale-up

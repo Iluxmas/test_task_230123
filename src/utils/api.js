@@ -3,15 +3,6 @@ class Api {
     this._baseURL = url;
   }
 
-  // _checkResponse(request) {
-  //   return request.then((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
-  //   });
-  // }
-
   getResource(url, isLong = true) {
     url = isLong ? url + '/poll' : url;
 
@@ -22,7 +13,6 @@ class Api {
       },
     });
 
-    // return this._checkResponse(newProm);
     return newProm;
   }
 

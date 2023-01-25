@@ -18,7 +18,7 @@ const plugins = [
   }),
   new MiniCssExtractPlugin({
     filename: "[name].[contenthash].css", // Формат имени файла
-  }), // Добавляем в список плагинов
+  }),
 ];
 
 if (process.env.SERVE) {
@@ -52,7 +52,7 @@ module.exports = {
     rules: [
       { test: /\.(html)$/, use: ["html-loader"] },
       {
-        test: /\.css$/i, // /\.(le|c)ss$/i если вы используете less
+        test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
@@ -71,7 +71,7 @@ module.exports = {
             // при каждом запуске
           },
         },
-      }, // Добавляем загрузчик для html
+      },
     ],
   },
 };

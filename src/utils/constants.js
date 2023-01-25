@@ -1,5 +1,3 @@
-const initialState = {};
-
 const PAIRS = [
   ['RUB', 'CUPCAKE'],
   ['USD', 'CUPCAKE'],
@@ -9,4 +7,4 @@ const PAIRS = [
   ['EUR', 'USD'],
 ];
 
-export { initialState, PAIRS } 
+export default PAIRS 

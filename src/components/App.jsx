@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ApiService from '../utils/api';
 import ratesReducer from '../utils/ratesReducer';
-import { initialState, PAIRS } from '../utils/constants';
+import { PAIRS } from '../utils/constants';
 import Row from './Row.jsx';
 
 import './App.css';
+
+const initialState = {};
 
 export default function App() {
   const [state, dispatch] = useReducer(ratesReducer, initialState);
