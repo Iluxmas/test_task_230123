@@ -4,7 +4,9 @@
 
 **Tech stack:** React, JavaScript, API, Webpack
 
-**Application start:** After downloading this repo run command `npm i` to install dependencies. After that you need run server from the API repo mentioned above. After that API will be available on PORT 3000. Then start this app using `npm start`, that all. Or you can access deployed version [here](https://iluxmas.github.io/test_task_230123_/) (API server still need to be launched)
+**Application start:** After downloading this repo run command `npm i` to install dependencies. After that you need run server from the API repo mentioned above. After that API will be available on PORT 3000. Then start this app using `npm start`, that all.
+
+Or you can access deployed version of this app [here](https://iluxmas.github.io/test_task_230123_/) (API server still need to be launched)
 
 **Features:**
 
@@ -17,4 +19,4 @@ Bundling was made with Webpack
 
 - [ ] Display API availability status
 - [ ] Add last update time for sources
-- [ ] Refactor processing data function to make it calculate and update only newly received data, would be better in case of data scale-up
+- [ ] Redesign state management and processing data function to make it calculate and update only newly received data, necessary in case of data scale-up

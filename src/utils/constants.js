@@ -7,4 +7,4 @@ const PAIRS = [
   ['EUR', 'USD'],
 ];
 
-export default PAIRS 
+export default PAIRS; 
