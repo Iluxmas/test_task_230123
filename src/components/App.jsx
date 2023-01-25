@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ApiService from '../utils/api';
 import ratesReducer from '../utils/ratesReducer';
-import { PAIRS } from '../utils/constants';
+import PAIRS from '../utils/constants';
 import Row from './Row.jsx';
 
 import './App.css';
