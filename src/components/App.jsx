@@ -13,18 +13,15 @@ export default function App() {
   const [preparedData, setPreparedData] = useState({});
 
   useEffect(() => {
-    requestData('/first');
-    return () => requestData('/first');
+    requestData('/first', true);
   }, []);
 
   useEffect(() => {
-    requestData('/second');
-    return () => requestData('/second');
+    requestData('/second', true);
   }, []);
 
   useEffect(() => {
-    requestData('/third');
-    return () => requestData('/third');
+    requestData('/third', true);
   }, []);
 
   useEffect(() => {
@@ -54,27 +51,33 @@ export default function App() {
     setPreparedData(result);
   }
 
-  function requestData(url, isLongPoll = true) {
-    ApiService.getResource(url, isLongPoll).then((res) => {
-      if (res.status == 502) {
-        console.log(res.statusText);
+  function requestData(url, isInitial = false) {
+    // if function called first time there would be promise race for first response, then it will be just one promise
+    const promise = isInitial
+      ? Promise.race([ApiService.getResource(url, true), ApiService.getResource(url, false)])
+      : ApiService.getResource(url, true);
 
-        if (isLongPoll) requestData(url);
-      } else if (res.status != 200) {
-        Promise.reject(`Возникла ошибка при загрузке данных \nStatus: ${res.status}`);
-
-        if (isLongPoll) {
+    promise
+      .then((res) => {
+        if (res.status == 502) {
+          requestData(url);
+        } else if (res.status != 200) {
           // New request in 1 second.
-          new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
-            requestData(url);
-          });
+          new Promise((resolve) => setTimeout(resolve, 1000)).then(() => requestData(url));
+        } else {
+          return res.json();
         }
-      } else {
-        res.json().then((data) => dispatch({ type: url, payload: data }));
-        if (isLongPoll) requestData(url);
-      }
-    });
+        res.json();
+      })
+      .then((data) => {
+        dispatch({ type: url, payload: data });
+        requestData(url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
   return (
     <div className='page'>
       <h1 className='page__title'>Exchange rates</h1>
@@ -86,6 +89,7 @@ export default function App() {
           return <Row title={value} key={idx} data={preparedData[value]} />;
         })}
       </div>
+
       <a href='https://github.com/Iluxmas/test_task_230123_' target='_blank' className='page__link'>
         Repository
       </a>
