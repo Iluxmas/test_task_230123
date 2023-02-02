@@ -82,7 +82,7 @@ function App() {
       } else if (res.status != 200) {
         // New request in 1 second.
         new Promise(function (resolve) {
-          return setTimeout(resolve, 1000);
+          return setTimeout(resolve, 2000);
         }).then(function () {
           return requestData(url);
         });
@@ -97,6 +97,11 @@ function App() {
       });
       requestData(url);
     }).catch(function (err) {
+      new Promise(function (resolve) {
+        return setTimeout(resolve, 2000);
+      }).then(function () {
+        return requestData(url);
+      });
       console.log(err);
     });
   }
