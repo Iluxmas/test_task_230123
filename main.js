@@ -42,22 +42,13 @@ function App() {
     preparedData = _useState2[0],
     setPreparedData = _useState2[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    requestData('/first');
-    return function () {
-      return requestData('/first');
-    };
+    requestData('/first', true);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    requestData('/second');
-    return function () {
-      return requestData('/second');
-    };
+    requestData('/second', true);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    requestData('/third');
-    return function () {
-      return requestData('/third');
-    };
+    requestData('/third', true);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     prepareData();
@@ -82,30 +73,31 @@ function App() {
     setPreparedData(result);
   }
   function requestData(url) {
-    var isLongPoll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-    _utils_api__WEBPACK_IMPORTED_MODULE_1__["default"].getResource(url, isLongPoll).then(function (res) {
+    var isInitial = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    // if function called first time there would be promise race for first response, then it will be just one promise
+    var promise = isInitial ? Promise.race([_utils_api__WEBPACK_IMPORTED_MODULE_1__["default"].getResource(url, true), _utils_api__WEBPACK_IMPORTED_MODULE_1__["default"].getResource(url, false)]) : _utils_api__WEBPACK_IMPORTED_MODULE_1__["default"].getResource(url, true);
+    promise.then(function (res) {
       if (res.status == 502) {
-        console.log(res.statusText);
-        if (isLongPoll) requestData(url);
+        requestData(url);
       } else if (res.status != 200) {
-        Promise.reject("\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0435 \u0434\u0430\u043D\u043D\u044B\u0445 \nStatus: ".concat(res.status));
-        if (isLongPoll) {
-          // New request in 1 second.
-          new Promise(function (resolve) {
-            return setTimeout(resolve, 1000);
-          }).then(function () {
-            requestData(url);
-          });
-        }
-      } else {
-        res.json().then(function (data) {
-          return dispatch({
-            type: url,
-            payload: data
-          });
+        // New request in 1 second.
+        new Promise(function (resolve) {
+          return setTimeout(resolve, 1000);
+        }).then(function () {
+          return requestData(url);
         });
-        if (isLongPoll) requestData(url);
+      } else {
+        return res.json();
       }
+      res.json();
+    }).then(function (data) {
+      dispatch({
+        type: url,
+        payload: data
+      });
+      requestData(url);
+    }).catch(function (err) {
+      console.log(err);
     });
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -33777,7 +33769,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(document.getElementById('root'));
-root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_App_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+root.render(
+/*#__PURE__*/
+// <React.StrictMode>
+react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_App_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+// </React.StrictMode>
+);
 })();
 
 /******/ })()
