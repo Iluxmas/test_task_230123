@@ -63,7 +63,7 @@ export default function App() {
           requestData(url);
         } else if (res.status != 200) {
           // New request in 1 second.
-          new Promise((resolve) => setTimeout(resolve, 1000)).then(() => requestData(url));
+          new Promise((resolve) => setTimeout(resolve, 2000)).then(() => requestData(url));
         } else {
           return res.json();
         }
@@ -74,6 +74,7 @@ export default function App() {
         requestData(url);
       })
       .catch((err) => {
+        new Promise((resolve) => setTimeout(resolve, 2000)).then(() => requestData(url));
         console.log(err);
       });
   }
