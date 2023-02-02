@@ -20,3 +20,9 @@ Bundling was made with Webpack
 - [ ] Display API availability status
 - [ ] Add last update time for sources
 - [ ] Redesign state management and processing data function to make it calculate and update only newly received data, necessary in case of data scale-up
+
+**02.02.2023**
+
+Fixed:
+extra fetch requests
+faster initial data show
